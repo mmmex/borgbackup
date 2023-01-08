@@ -1,0 +1,53 @@
+# code: language=ansible
+---
+- hosts: all
+  become: true
+  tasks:
+  - name: Install epel-release package first
+    yum:
+      name: epel-release
+      state: present
+  - name: Install other dependencies
+    yum:
+      name: "{{ packages }}"
+      state: present
+    vars: 
+      packages:
+      - libselinux-python3
+      - borgbackup
+
+- name: Prepare backup server
+  hosts: backup_server
+  become: true
+  gather_facts: False
+  roles:
+    - role: add-host
+      ip: 192.168.56.3
+      hostname: client
+    - server
+
+- name: Prepare client
+  hosts: client
+  become: true
+  gather_facts: False
+  roles:
+    - role: add-host
+      ip: 192.168.56.2
+      hostname: server
+    - role: client
+      borg_encryption_key: "Otus2023"
+      borg_remote_repo: "borg@server:/var/backup"
+      borg_backup_target: "/etc"
+      #borg_prune_keep_daily: default set to 90
+      #borg_prune_keep_monthly: default set to 12
+      #borg_prune_keep_yearly: default set to 1
+    # Configure logrotate journald
+    - role: config-journald # function config taken from: https://github.com/0x0I/ansible-role-journald
+      vars:
+        journald_configs:
+          - config:
+              Storage: persistent
+              SystemMaxFileSize: 50M
+              MaxFileSec: 1month
+  vars:
+    ansible_python_interpreter: /usr/bin/python3 #for use expect module
