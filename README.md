@@ -19,11 +19,11 @@
 Формат сдачи ДЗ - vagrant + ansible
 ```
 
-## Стенд Vagrant с двумя виртуальными машинами: backup_server и client
+## Стенд Vagrant с двумя виртуальными машинами: backup_server и client.
 
 * Клонируем репозиторий: `git clone https://github.com/mmmex/borgbackup.git`
 
-* Переходим в директорию `borgbackup` и выполняем запуск ВМ: `cd borgbackup; vagrant up`
+* Переходим в директорию `borgbackup` и выполняем запуск: `cd borgbackup; vagrant up`
 
 * Демонстрация запуска:
 
@@ -31,3 +31,10 @@
 
 * После выполнения стенд полностью готов к демонстрации.
 
+## Настройка резервного копирования каталога /etc с хоста client на удаленный сервер backup_server при помощи borgbackup.
+
+Согласно техническому заданию, Ansible настроит две ВМ: `client` и `backup_server`.
+
+* Демонстрация выполнения ДЗ:
+
+[![asciicast](https://asciinema.org/a/UoXDXIQm5i94fgeuRqlLdU4qY.svg)](https://asciinema.org/a/UoXDXIQm5i94fgeuRqlLdU4qY)
