@@ -25,4 +25,9 @@
 
 * Переходим в директорию `borgbackup` и выполняем запуск ВМ: `cd borgbackup; vagrant up`
 
-[![Демонстрация запуска](https://asciinema.org/a/550237.svg)](https://asciinema.org/a/550237)
+* Демонстрация запуска:
+
+[![asciicast](https://asciinema.org/a/550237.svg)](https://asciinema.org/a/550237)
+
+* После выполнения стенд полностью готов к демонстрации.
+
